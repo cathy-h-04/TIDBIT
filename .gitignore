@@ -1,3 +1,19 @@
+# TIDBIT project files
+bit_venv/
+.claude/
+/smoke_test.py
+/test_phase1.py
+/design.md
+/product_vision.md
+/claude_uses.md
+/ideas.md
+/features/
+
+# TIDBIT runtime state
+/docker-compose.override.yml
+/.mcp.json
+/.tidbit_mode
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
