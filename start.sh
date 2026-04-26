@@ -52,6 +52,23 @@ for model in "qwen2.5:14b" "nomic-embed-text"; do
     fi
 done
 
+# ── Backend (uvicorn) ────────────────────────────────────────────────────────
+UVICORN="$REPO_ROOT/bit_venv/bin/uvicorn"
+if [ ! -x "$UVICORN" ]; then
+    echo ""
+    echo "ERROR: bit_venv not found. Run ./setup.sh first."
+    exit 1
+fi
+
+if curl -sf http://localhost:8000/docs > /dev/null 2>&1; then
+    echo "→ Backend already running."
+else
+    echo "→ Starting backend..."
+    cd "$REPO_ROOT"
+    "$UVICORN" backend.main:app > /tmp/tidbit_backend.log 2>&1 &
+    echo "  Logs: /tmp/tidbit_backend.log"
+fi
+
 echo ""
 echo "TIDBIT services ready."
-echo "Press F5 in VS Code to launch the extension."
+echo "Open your project in VS Code — the extension connects automatically."

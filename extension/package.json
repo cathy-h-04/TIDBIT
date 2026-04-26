@@ -73,6 +73,11 @@
           "type": "string",
           "default": "http://localhost:8000",
           "description": "URL of the TIDBIT FastAPI backend"
+        },
+        "tidbit.repoPath": {
+          "type": "string",
+          "default": "",
+          "description": "Absolute path to the TIDBIT repo root (e.g. /Users/you/TIDBIT). Required when the extension is installed from a .vsix rather than via F5."
         }
       }
     }

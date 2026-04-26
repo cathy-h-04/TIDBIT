@@ -5,9 +5,26 @@ import { TidbitPanel } from './panel';
 import { TidbitServer } from './server';
 
 export function activate(context: vscode.ExtensionContext) {
-  // Resolve the symlink so that '../' points to the repo root, not ~/.vscode/extensions/.
-  const realExtPath = fs.realpathSync(context.extensionUri.fsPath);
-  const repoRoot = path.join(realExtPath, '..');
+  const config = vscode.workspace.getConfiguration('tidbit');
+  const configuredPath = config.get<string>('repoPath', '').trim();
+
+  let repoRoot: string;
+  if (configuredPath) {
+    repoRoot = configuredPath;
+  } else {
+    // Dev / F5 workflow: extension folder is a symlink into the repo.
+    const realExtPath = fs.realpathSync(context.extensionUri.fsPath);
+    repoRoot = path.join(realExtPath, '..');
+  }
+
+  const uvicorn = path.join(repoRoot, 'bit_venv', 'bin', 'uvicorn');
+  if (!fs.existsSync(uvicorn)) {
+    vscode.window.showErrorMessage(
+      `TIDBIT: Cannot find bit_venv at "${repoRoot}". ` +
+      'Set "tidbit.repoPath" in VS Code settings to the TIDBIT repo path and reload.'
+    );
+    return;
+  }
 
   const server = new TidbitServer(repoRoot);
   server.start();

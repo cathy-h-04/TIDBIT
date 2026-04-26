@@ -13,8 +13,9 @@ git clone https://github.com/cathy-h-04/TIDBIT.git
 cd TIDBIT
 ./setup.sh                                                  # create venv, install deps, write .mcp.json
 code --install-extension extension/tidbit-0.1.0.vsix        # install VS Code extension
-./start.sh                                                  # start Qdrant + Ollama (pulls models on first run ~10 min)
-# Then open your project folder in VS Code — TIDBIT activates automatically.
+./start.sh                                                  # start Qdrant + Ollama + backend (pulls models on first run ~10 min)
+# In VS Code: set "tidbit.repoPath" to the path where you cloned TIDBIT (e.g. /Users/you/TIDBIT)
+# Then open your project folder — TIDBIT activates automatically.
 # Restart Claude Code to pick up the MCP tools.
 ```
 
@@ -101,10 +102,13 @@ You approve which memories to load, then work normally. During the session Claud
 
 ## Troubleshooting
 
+**"Cannot find bit_venv" or backend fails to start**
+- In VS Code, open Settings (`Cmd+,`) → search "tidbit.repoPath" → set it to the full path where you cloned TIDBIT (e.g. `/Users/you/TIDBIT`), then reload the window.
+
 **Backend won't start / extension shows "disconnected"**
+- Make sure `./start.sh` ran without errors (it starts Qdrant, Ollama, and the backend)
 - Make sure Docker Desktop is running: `docker ps`
 - Make sure Ollama is running: `ollama list`
-- Check `./start.sh` ran without errors
 
 **"Qdrant dimension mismatch" error in backend logs**
 - The vector store schema changed. Reset it: `docker compose down -v && docker compose up -d`
