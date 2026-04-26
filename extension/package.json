@@ -1,0 +1,102 @@
+{
+  "name": "tidbit",
+  "displayName": "TIDBIT",
+  "description": "Persistent project-scoped memory OS for AI coding tools",
+  "version": "0.1.0",
+  "publisher": "tidbit",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cathy-h-04/TIDBIT"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "tidbit",
+          "title": "TIDBIT",
+          "icon": "resources/icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "tidbit": [
+        {
+          "id": "tidbit.memories",
+          "name": "Memories",
+          "type": "webview"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "tidbit.refresh",
+        "title": "Refresh Memories",
+        "icon": "$(refresh)",
+        "category": "TIDBIT"
+      },
+      {
+        "command": "tidbit.search",
+        "title": "Search Memories",
+        "icon": "$(search)",
+        "category": "TIDBIT"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "tidbit.refresh",
+          "when": "view == tidbit.memories",
+          "group": "navigation"
+        },
+        {
+          "command": "tidbit.search",
+          "when": "view == tidbit.memories",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "TIDBIT",
+      "properties": {
+        "tidbit.backendUrl": {
+          "type": "string",
+          "default": "http://localhost:8000",
+          "description": "URL of the TIDBIT FastAPI backend"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "package": "npm run build && vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^3.9.1",
+    "esbuild": "^0.21.0",
+    "typescript": "^5.4.0"
+  },
+  "dependencies": {
+    "graphology": "^0.25.4",
+    "graphology-layout-forceatlas2": "^0.10.1",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "sigma": "^2.4.0"
+  }
+}
