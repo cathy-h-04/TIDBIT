@@ -1,0 +1,28 @@
+# TIDBIT backend dependencies
+# Install via: pip install -r requirements.txt
+# Then: python -m spacy download en_core_web_sm
+
+fastapi==0.136.1
+uvicorn==0.46.0
+pydantic-settings==2.14.0
+python-multipart==0.0.26
+sse-starlette==3.3.4
+websockets==16.0
+httpx==0.28.1
+
+# Memory library (local fork — installed as editable below)
+# mem0ai is installed with: pip install -e .
+
+# Vector store
+qdrant-client==1.17.1
+fastembed==0.8.0
+
+# MCP server
+mcp==1.27.0
+
+# LLM provider
+ollama==0.6.1
+
+# NLP (entity extraction for graph edges)
+spacy==3.8.14
+# After installing spacy: python -m spacy download en_core_web_sm
